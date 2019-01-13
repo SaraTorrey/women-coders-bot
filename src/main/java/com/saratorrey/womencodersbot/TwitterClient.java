@@ -57,7 +57,7 @@ public class TwitterClient {
         final Twitter twitter = tf.getInstance();
 
         cb = buildConfig( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET,
-                                               TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET );
+                          TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET );
 
         TwitterStream twitterStream = new TwitterStreamFactory( cb.build() ).getInstance();
 
