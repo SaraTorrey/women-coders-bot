@@ -1,3 +1,5 @@
+package com.saratorrey.womencodersbot;
+
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -10,7 +12,7 @@ import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class Main {
+public class TwitterClient {
 
     // Don't ever check your credentials into GitHub!
     public static final String TWITTER_CONSUMER_KEY = System.getenv( "TWITTER_CONSUMER_KEY" );
@@ -43,7 +45,7 @@ public class Main {
         }
     }
 
-    private static void searchTwitter() {
+    public static void searchTwitter() {
 
 
         // Read API keys from environment variables (don't want to check these into Github! LOL!)
@@ -105,8 +107,8 @@ public class Main {
         twitterStream.filter( new FilterQuery( "#MomsCanCode",
                                                "#MomsWhoCode",
                                                "#WomenWhoCode",
-                                               "#WomenInTech",
-                                               "#workfromhomemom" ) );
+                                               "#WomenInTech"
+                                               ) );
 
 
 //        TwitterFactory tf = new TwitterFactory( cb.build() );
