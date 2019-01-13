@@ -66,6 +66,7 @@ public class TwitterClient {
 
                 if ( !status.getUser().getScreenName().toLowerCase().contains( "womencodersbot" ) && // Don't retweet my own tweets :)
                      !status.getUser().getScreenName().toLowerCase().contains( "devsuggest" ) &&
+                     !status.getUser().getScreenName().toLowerCase().contains( "codewall" ) &&
                      !status.getUser().getScreenName().toLowerCase().contains( "plumbing" ) &&
                      !status.isRetweet() && !status.isRetweetedByMe() ) {
                     System.out.println( String.format( "Retweeting: [%s]", status.getText() ) );
