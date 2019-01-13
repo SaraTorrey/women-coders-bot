@@ -64,12 +64,10 @@ public class TwitterClient {
         StatusListener listener = new StatusListener() {
             public void onStatus( Status status ) {
 
-                System.out.println( status.getUser().getName() + ": " + status.getText() );
-
                 if ( !status.getUser().getScreenName().toLowerCase().contains( "womencodersbot" ) && // Don't retweet my own tweets :)
                      !status.getUser().getScreenName().toLowerCase().contains( "plumbing" ) &&
                      !status.isRetweet() && !status.isRetweetedByMe() ) {
-                    System.out.println( status.getText() );
+                    System.out.println( String.format( "Retweeting: [%s]", status.getText() ) );
                     try {
                         twitter.retweetStatus( status.getId() );
                         twitter.createFriendship( status.getUser().getScreenName() );
@@ -77,6 +75,9 @@ public class TwitterClient {
                     catch ( Exception e ) {
                         System.out.println( e.getMessage() );
                     }
+                }
+                else {
+                    System.out.println( String.format( "Skipping: [%s]", status.getText() ) );
                 }
             }
 
@@ -107,8 +108,7 @@ public class TwitterClient {
         twitterStream.filter( new FilterQuery( "#MomsCanCode",
                                                "#MomsWhoCode",
                                                "#WomenWhoCode",
-                                               "#WomenInTech"
-                                               ) );
+                                               "#WomenCanCode" ) );
 
 
 //        TwitterFactory tf = new TwitterFactory( cb.build() );
