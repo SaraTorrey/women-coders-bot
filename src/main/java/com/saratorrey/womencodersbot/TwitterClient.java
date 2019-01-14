@@ -119,7 +119,8 @@ public class TwitterClient {
                                                "#MomsWhoCode",
                                                "#WomenWhoCode",
                                                "#WomenCanCode",
-                                               "#GirlsWhoCode") );
+                                               "#GirlsWhoCode",
+                                               "#GirlsCanCode") );
 
 
 //        TwitterFactory tf = new TwitterFactory( cb.build() );
