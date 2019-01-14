@@ -1,5 +1,6 @@
 package com.saratorrey.womencodersbot;
 
+import org.apache.commons.lang3.StringUtils;
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -12,6 +13,8 @@ import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
+import java.util.Arrays;
+
 public class TwitterClient {
 
     // Don't ever check your credentials into GitHub!
@@ -19,6 +22,10 @@ public class TwitterClient {
     public static final String TWITTER_CONSUMER_SECRET = System.getenv( "TWITTER_CONSUMER_SECRET" );
     public static final String TWITTER_ACCESS_TOKEN = System.getenv( "TWITTER_ACCESS_TOKEN" );
     public static final String TWITTER_ACCESS_SECRET = System.getenv( "TWITTER_ACCESS_SECRET" );
+
+    // Comma-separated list of accounts to skip. Helps with spam filtering.
+    public static final String SKIP_ACCOUNTS = System.getenv( "TWITTER_SKIP_ACCOUNTS" );
+
 
     public static void main( String[] args ) {
 
@@ -64,10 +71,11 @@ public class TwitterClient {
         StatusListener listener = new StatusListener() {
             public void onStatus( Status status ) {
 
-                if ( !status.getUser().getScreenName().toLowerCase().contains( "womencodersbot" ) && // Don't retweet my own tweets :)
-                     !status.getUser().getScreenName().toLowerCase().contains( "devsuggest" ) &&
-                     !status.getUser().getScreenName().toLowerCase().contains( "codewall" ) &&
-                     !status.getUser().getScreenName().toLowerCase().contains( "plumbing" ) &&
+                // Check if this is an account that should be skipped
+                boolean isAccountToSkip = Arrays.stream( StringUtils.split( SKIP_ACCOUNTS, "," ) )
+                        .anyMatch( s -> status.getUser().getScreenName().toLowerCase().contains( s.toLowerCase() ) );
+
+                if ( !isAccountToSkip &&
                      !status.isRetweet() && !status.isRetweetedByMe() ) {
                     System.out.println( String.format( "Retweeting: [%s]", status.getText() ) );
                     try {
