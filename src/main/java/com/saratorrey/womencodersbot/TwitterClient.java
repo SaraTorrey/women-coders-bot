@@ -23,7 +23,7 @@ public class TwitterClient {
     public static final String TWITTER_ACCESS_TOKEN = System.getenv( "TWITTER_ACCESS_TOKEN" );
     public static final String TWITTER_ACCESS_SECRET = System.getenv( "TWITTER_ACCESS_SECRET" );
 
-    // Comma-separated list of accounts to skip. Helps with spam filtering.
+    // Comma-separated list of accounts to skip/ignore. Helps with spam filtering.
     public static final String SKIP_ACCOUNTS = System.getenv( "TWITTER_SKIP_ACCOUNTS" );
 
 
@@ -71,8 +71,7 @@ public class TwitterClient {
         StatusListener listener = new StatusListener() {
             public void onStatus( Status status ) {
 
-
-                // Check if this is an account that should be skipped
+                // Check if this is an account that should be skipped (helps with spam filtering)
                 boolean isAccountToSkip = Arrays.stream( StringUtils.split( SKIP_ACCOUNTS, "," ) )
                         .anyMatch( s -> status.getUser().getScreenName().toLowerCase().contains( s.toLowerCase() ) );
 
@@ -119,7 +118,8 @@ public class TwitterClient {
         twitterStream.filter( new FilterQuery( "#MomsCanCode",
                                                "#MomsWhoCode",
                                                "#WomenWhoCode",
-                                               "#WomenCanCode" ) );
+                                               "#WomenCanCode",
+                                               "#GirlsWhoCode") );
 
 
 //        TwitterFactory tf = new TwitterFactory( cb.build() );
