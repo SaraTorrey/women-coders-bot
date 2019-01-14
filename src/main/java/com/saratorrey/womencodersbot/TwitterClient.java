@@ -71,6 +71,7 @@ public class TwitterClient {
         StatusListener listener = new StatusListener() {
             public void onStatus( Status status ) {
 
+
                 // Check if this is an account that should be skipped
                 boolean isAccountToSkip = Arrays.stream( StringUtils.split( SKIP_ACCOUNTS, "," ) )
                         .anyMatch( s -> status.getUser().getScreenName().toLowerCase().contains( s.toLowerCase() ) );
