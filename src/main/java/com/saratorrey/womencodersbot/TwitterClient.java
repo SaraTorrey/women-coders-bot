@@ -122,7 +122,7 @@ public class TwitterClient {
                                                "#GirlsWhoCode",
                                                "#GirlsCanCode",
                                                "#GirlCode",
-                                               "GirlDevelopIt",
+                                               "#GirlDevelopIt",
                                                "#rladies",
                                                "#VueVixens",
                                                "#WOCinTechChat" ) );
