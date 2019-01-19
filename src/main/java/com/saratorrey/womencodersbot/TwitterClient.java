@@ -1,5 +1,7 @@
 package com.saratorrey.womencodersbot;
 
+import com.google.common.collect.Lists;
+
 import org.apache.commons.lang3.StringUtils;
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
@@ -25,6 +27,7 @@ public class TwitterClient {
 
     // Comma-separated list of accounts to skip/ignore. Helps with spam filtering.
     public static final String SKIP_ACCOUNTS = System.getenv( "TWITTER_SKIP_ACCOUNTS" );
+    public static final int FAKE_ACCOUNT_NUMBER_THRESHOLD = 6;
 
 
     public static void main( String[] args ) {
@@ -71,12 +74,8 @@ public class TwitterClient {
         StatusListener listener = new StatusListener() {
             public void onStatus( Status status ) {
 
-                // Check if this is an account that should be skipped (helps with spam filtering)
-                boolean isAccountToSkip = Arrays.stream( StringUtils.split( SKIP_ACCOUNTS, "," ) )
-                        .anyMatch( s -> status.getUser().getScreenName().toLowerCase().contains( s.toLowerCase() ) );
-
-                if ( !isAccountToSkip &&
-                     !status.isRetweet() && !status.isRetweetedByMe() ) {
+                // Check if account is OK to retweet. Try and avoid obvious fake and spam accounts.
+                if ( isAccountOk( status ) ) {
                     System.out.println( String.format( "Retweeting: [%s]", status.getText() ) );
                     try {
                         twitter.retweetStatus( status.getId() );
@@ -129,6 +128,20 @@ public class TwitterClient {
                                                "#WOCinTechChat" ) );
     }
 
+    private static boolean isAccountOk( Status status ) {
+
+        // Check if this is an account that should be skipped (helps with spam filtering)
+        boolean isAccountToSkip = Arrays.stream( StringUtils.split( SKIP_ACCOUNTS, "," ) )
+                .anyMatch( s -> status.getUser().getScreenName().toLowerCase().contains( s.toLowerCase() ) );
+
+        // Skip accounts with too many numbers in the name. Fake accounts often have lots of numbers in the name.
+        boolean tooManyNumberInAccountName = numberCount( status.getUser().getScreenName() ) >= FAKE_ACCOUNT_NUMBER_THRESHOLD;
+        return !isAccountToSkip &&
+               !status.isRetweet() &&
+               !status.isRetweetedByMe() &&
+               !tooManyNumberInAccountName;
+    }
+
     private static ConfigurationBuilder buildConfig( String consumerKey,
                                                      String consumerSecret,
                                                      String accessToken,
@@ -141,5 +154,17 @@ public class TwitterClient {
                 .setOAuthAccessToken( accessToken )
                 .setOAuthAccessTokenSecret( accessSecret );
         return cb;
+    }
+
+    public static Integer numberCount( String string ) {
+
+        int count = 0;
+        for ( Character character : Lists.charactersOf( string ) ) {
+            if ( Character.isDigit( character ) ) {
+                count++;
+
+            }
+        }
+        return count;
     }
 }
