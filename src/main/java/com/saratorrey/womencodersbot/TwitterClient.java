@@ -126,42 +126,7 @@ public class TwitterClient {
                                                "GirlDevelopIt",
                                                "#rladies",
                                                "#VueVixens",
-                                               "#WOCinTechChat") );
-
-
-//        TwitterFactory tf = new TwitterFactory( cb.build() );
-//        Twitter twitter = tf.getInstance();
-//        try {
-//            Query query = new Query( "#WomenWhoCode" );
-//            query.since( "2018-12-25" );
-//            query.until( "2019-01-01" );
-//            QueryResult result;
-//            result = twitter.search( query );
-//            List<Status> tweets = result.getTweets();
-//            for ( Status tweet : tweets ) {
-//                System.out.println( "@" + tweet.getUser().getScreenName() + " - " + tweet.getText() );
-//
-//                if ( !tweet.getUser().getScreenName().toLowerCase().contains( "womencodersbot" ) &&
-//                     !tweet.getUser().getScreenName().toLowerCase().contains( "saratorrey" ) &&
-//                     !tweet.getUser().getScreenName().toLowerCase().contains( "plumbing" ) &&
-//                     !tweet.isRetweet() && !tweet.isRetweetedByMe() ) {
-//                    System.out.println( tweet.getText() );
-//                    try {
-//                        twitter.retweetStatus( tweet.getId() );
-//                    }
-//                    catch ( Exception e ) {
-//                        System.out.println( e.getMessage() );
-//                    }
-//                }
-//            }
-//
-//            System.exit( 0 );
-//        }
-//        catch ( TwitterException te ) {
-//            te.printStackTrace();
-//            System.out.println( "Failed to search tweets: " + te.getMessage() );
-//            System.exit( -1 );
-//        }
+                                               "#WOCinTechChat" ) );
     }
 
     private static ConfigurationBuilder buildConfig( String consumerKey,
