@@ -1,10 +1,10 @@
 # Women Coders Bot
 
-An open-source, community-driven Twitter bot created by [Sara Torrey](https://github.com/SaraTorrey) and [Dan Torrey](https://github.com/danotorrey) to support all women who code.
+An open-source, community-driven Twitter bot created by [Sara Torrey](https://github.com/SaraTorrey) and [Dan Torrey](https://github.com/danotorrey) to support all women who code. Click [here](https://twitter.com/WomenCodersBot) to view the Bot on Twitter.
 
 ## What does it do?
 
-The Women coders bot retweets tweets containing the following hashtags: #GirlsWhoCode, #GirlsCanCode  #MomsCanCode, #MomsWhoCode, #WomenWhoCode, #WomenCanCode, #WomenCoders 
+The [Women Coders Bot](https://twitter.com/WomenCodersBot) retweets tweets containing the following hashtags: #GirlsWhoCode, #GirlsCanCode  #MomsCanCode, #MomsWhoCode, #WomenWhoCode, #WomenCanCode, #WomenCoders 
 
 ## Why was it created?
 
@@ -25,7 +25,7 @@ and is deployed in [Heroku](http://heroku.com). It costs about 7$ per month to k
 ## Can I add another hashtag for Women Coders Bot to retweet?
 
 Sure! Just submit an [issue](https://github.com/SaraTorrey/women-coders-bot/issues) here to get started. Never used 
-GitHub before? No problem! Just send us a DM @WomenCodersBot and we can help you. :)
+GitHub before? No problem! Just send us a DM [@WomenCodersBot](https://twitter.com/WomenCodersBot) and we can help you. :)
 
 ## Want to contribute?
 
@@ -33,5 +33,5 @@ Yes please! Just open an [issue](https://github.com/SaraTorrey/women-coders-bot/
 
 ## Want to opt-out?
 
-No problem! If for any reason you don't want this bot to retweet tweets from your account, just send us a DM @WomenCodersBot
+No problem! If for any reason you don't want this bot to retweet tweets from your account, just send us a DM [@WomenCodersBot](https://twitter.com/WomenCodersBot)
 and we will add you to the Skip Accounts list.
