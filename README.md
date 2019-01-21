@@ -20,7 +20,7 @@ a say in how it operates.
 ## How does it work?
 
 This is written in Java (using [Twitter4j](https://github.com/Twitter4J/Twitter4J) and [Spring Boot](http://spring.io/projects/spring-boot))
-and is deployed in [Heroku](http://heroku.com). 
+and is deployed in [Heroku](http://heroku.com). It costs about 7$ per month to keep running, which is the cost to run a small Java application in Heroku.
 
 ## Can I add another hashtag for Women Coders Bot to retweet?
 
