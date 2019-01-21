@@ -1,6 +1,6 @@
 # Women Coders Bot
 
-An open-source community-driven Twitter bot created by [Sara Torrey](https://github.com/SaraTorrey) and [Dan Torrey](https://github.com/danotorrey) to support all women who code.
+An open-source, community-driven Twitter bot created by [Sara Torrey](https://github.com/SaraTorrey) and [Dan Torrey](https://github.com/danotorrey) to support all women who code.
 
 ## What does it do?
 
