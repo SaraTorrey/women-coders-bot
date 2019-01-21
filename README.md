@@ -19,7 +19,7 @@ a say in how it operates.
 
 ## How does it work?
 
-This is written in Java (using [Twitter4j](https://github.com/Twitter4J/Twitter4J) and [Spring Boot](http://spring.io/projects/spring-boot)
+This is written in Java (using [Twitter4j](https://github.com/Twitter4J/Twitter4J) and [Spring Boot](http://spring.io/projects/spring-boot))
 and is deployed in [Heroku](http://heroku.com). 
 
 ## Can I add another hashtag for Women Coders Bot to retweet?
