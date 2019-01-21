@@ -120,12 +120,7 @@ public class TwitterClient {
                                                "#WomenCanCode",
                                                "#WomenCoders",
                                                "#GirlsWhoCode",
-                                               "#GirlsCanCode",
-                                               "#GirlCode",
-                                               "#GirlDevelopIt",
-                                               "#rladies",
-                                               "#VueVixens",
-                                               "#WOCinTechChat" ) );
+                                               "#GirlsCanCode" ) );
     }
 
     private static boolean isAccountOk( Status status ) {
