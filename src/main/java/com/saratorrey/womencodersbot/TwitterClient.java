@@ -20,46 +20,23 @@ import java.util.Arrays;
 public class TwitterClient {
 
     // Don't ever check your credentials into GitHub!
-    public static final String TWITTER_CONSUMER_KEY = System.getenv( "TWITTER_CONSUMER_KEY" );
-    public static final String TWITTER_CONSUMER_SECRET = System.getenv( "TWITTER_CONSUMER_SECRET" );
-    public static final String TWITTER_ACCESS_TOKEN = System.getenv( "TWITTER_ACCESS_TOKEN" );
-    public static final String TWITTER_ACCESS_SECRET = System.getenv( "TWITTER_ACCESS_SECRET" );
+    private static final String TWITTER_CONSUMER_KEY = System.getenv( "TWITTER_CONSUMER_KEY" );
+    private static final String TWITTER_CONSUMER_SECRET = System.getenv( "TWITTER_CONSUMER_SECRET" );
+    private static final String TWITTER_ACCESS_TOKEN = System.getenv( "TWITTER_ACCESS_TOKEN" );
+    private static final String TWITTER_ACCESS_SECRET = System.getenv( "TWITTER_ACCESS_SECRET" );
 
     // Comma-separated list of accounts to skip/ignore. Helps with spam filtering.
-    public static final String SKIP_ACCOUNTS = System.getenv( "TWITTER_SKIP_ACCOUNTS" );
-    public static final int FAKE_ACCOUNT_NUMBER_THRESHOLD = 6;
-
+    private static final String SKIP_ACCOUNTS = System.getenv( "TWITTER_SKIP_ACCOUNTS" );
+    private static final int FAKE_ACCOUNT_NUMBER_THRESHOLD = 6;
 
     public static void main( String[] args ) {
 
         searchTwitter();
     }
 
-    private static void sendTweet( String tweetContent ) {
-
-        // Read API keys from environment variables (don't want to check these into Github! LOL!)
-        ConfigurationBuilder cb = buildConfig( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET,
-                                               TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET );
-
-        try {
-            TwitterFactory factory = new TwitterFactory( cb.build() );
-            Twitter twitter = factory.getInstance();
-
-            System.out.println( twitter.getScreenName() );
-            Status status = twitter.updateStatus( tweetContent );
-            System.out.println( "Successfully updated the status to [" + status.getText() + "]." );
-        }
-        catch ( TwitterException te ) {
-            te.printStackTrace();
-            System.exit( -1 );
-        }
-    }
-
     public static void searchTwitter() {
 
-
         // Read API keys from environment variables (don't want to check these into Github! LOL!)
-
         ConfigurationBuilder cb = buildConfig( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET,
                                                TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET );
 
@@ -70,7 +47,6 @@ public class TwitterClient {
                           TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET );
 
         TwitterStream twitterStream = new TwitterStreamFactory( cb.build() ).getInstance();
-
         StatusListener listener = new StatusListener() {
             public void onStatus( Status status ) {
 
@@ -113,7 +89,6 @@ public class TwitterClient {
         };
 
         twitterStream.addListener( listener );
-
         twitterStream.filter( new FilterQuery( "#MomsCanCode",
                                                "#MomsWhoCode",
                                                "#WomenWhoCode",
@@ -161,5 +136,25 @@ public class TwitterClient {
             }
         }
         return count;
+    }
+
+    private static void sendTweet( String tweetContent ) {
+
+        // Read API keys from environment variables (don't want to check these into Github! LOL!)
+        ConfigurationBuilder cb = buildConfig( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET,
+                                               TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET );
+
+        try {
+            TwitterFactory factory = new TwitterFactory( cb.build() );
+            Twitter twitter = factory.getInstance();
+
+            System.out.println( twitter.getScreenName() );
+            Status status = twitter.updateStatus( tweetContent );
+            System.out.println( "Successfully updated the status to [" + status.getText() + "]." );
+        }
+        catch ( TwitterException te ) {
+            te.printStackTrace();
+            System.exit( -1 );
+        }
     }
 }
