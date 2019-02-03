@@ -30,6 +30,7 @@ public class TwitterServiceImpl implements TwitterService {
     private static final String SKIP_ACCOUNTS = System.getenv("TWITTER_SKIP_ACCOUNTS");
     private static final int FAKE_ACCOUNT_NUMBER_THRESHOLD = 6;
 
+
     @Override
     @PostConstruct // Runs the bot when the server starts up
     public void runBot() {
