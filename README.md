@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/SaraTorrey/women-coders-bot.svg?branch=master)](https://travis-ci.org/SaraTorrey/women-coders-bot)
+
 # Women Coders Bot
 
 An open-source, community-driven Twitter bot created by [Sara Torrey](https://github.com/SaraTorrey) and [Dan Torrey](https://github.com/danotorrey) to support all women who code. Click [here](https://twitter.com/WomenCodersBot) to view the Bot on Twitter.
