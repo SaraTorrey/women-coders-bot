@@ -3,6 +3,10 @@ package com.saratorrey.womencodersbot.service.impl;
 import com.google.common.collect.Lists;
 import com.saratorrey.womencodersbot.service.TwitterService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -18,6 +22,7 @@ import twitter4j.conf.ConfigurationBuilder;
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
+@Component
 public class TwitterServiceImpl implements TwitterService {
 
     // Don't ever check your credentials into GitHub!
@@ -30,10 +35,19 @@ public class TwitterServiceImpl implements TwitterService {
     private static final String SKIP_ACCOUNTS = System.getenv("TWITTER_SKIP_ACCOUNTS");
     private static final int FAKE_ACCOUNT_NUMBER_THRESHOLD = 6;
 
+    @Autowired
+    Environment env;
 
     @Override
+    @Profile("!test")
     @PostConstruct // Runs the bot when the server starts up
     public void runBot() {
+
+        // Skip with test profile
+        if (Arrays.stream(env.getActiveProfiles()).anyMatch(v -> v.equals("test"))) {
+            System.out.println("Bot will not be started, as profile is currently running as test.");
+            return;
+        }
 
         // Read API keys from environment variables (don't want to check these into Github! LOL!)
         ConfigurationBuilder cb = buildConfig(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET,
