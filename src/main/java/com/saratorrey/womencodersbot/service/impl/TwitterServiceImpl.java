@@ -91,7 +91,7 @@ public class TwitterServiceImpl implements TwitterService {
                                              "#GirlsCanCode"));
     }
 
-    private static boolean isAccountOk(Status status) {
+    private boolean isAccountOk(Status status) {
 
         // Check if this is an account that should be skipped (helps with spam filtering)
         boolean isAccountToSkip = Arrays.stream(StringUtils.split(SKIP_ACCOUNTS, ","))
@@ -119,7 +119,8 @@ public class TwitterServiceImpl implements TwitterService {
         return cb;
     }
 
-    public static Integer numberCount(String string) {
+    @Override
+    public Integer numberCount(String string) {
 
         int count = 0;
         for (Character character : Lists.charactersOf(string)) {
