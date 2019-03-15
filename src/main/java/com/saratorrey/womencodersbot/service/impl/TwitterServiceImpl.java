@@ -37,16 +37,26 @@ public class TwitterServiceImpl implements TwitterService {
     private static final String SKIP_ACCOUNTS = System.getenv( "TWITTER_SKIP_ACCOUNTS" );
     private static final int FAKE_ACCOUNT_NUMBER_THRESHOLD = 6;
 
+    // Filter query indicating which hashtags to retweet
+    private static final FilterQuery FILTER_QUERY = new FilterQuery( "#MomsCanCode",
+                                                                     "#MomsWhoCode",
+                                                                     "#WomenWhoCode",
+                                                                     "#WomenCanCode",
+                                                                     "#WomenCoders",
+                                                                     "#GirlsWhoCode",
+                                                                     "#GirlsCanCode" );
+
     @Autowired
-    Environment env;
+    Environment environment;
 
     @Override
+    // Don't actually run the bot when running in test mode.
     @Profile( "!test" )
     @PostConstruct // Runs the bot when the server starts up
     public void runBot() {
 
         // Skip with test profile
-        if ( Arrays.stream( env.getActiveProfiles() ).anyMatch( v -> v.equals( "test" ) ) ) {
+        if ( Arrays.stream( environment.getActiveProfiles() ).anyMatch( v -> v.equals( "test" ) ) ) {
             System.out.println( "Bot will not be started, as profile is currently running as test." );
             return;
         }
@@ -103,13 +113,7 @@ public class TwitterServiceImpl implements TwitterService {
         };
 
         twitterStream.addListener( listener );
-        twitterStream.filter( new FilterQuery( "#MomsCanCode",
-                                               "#MomsWhoCode",
-                                               "#WomenWhoCode",
-                                               "#WomenCanCode",
-                                               "#WomenCoders",
-                                               "#GirlsWhoCode",
-                                               "#GirlsCanCode" ) );
+        twitterStream.filter( FILTER_QUERY );
     }
 
     private boolean isAccountOk( Status status ) {
@@ -154,18 +158,22 @@ public class TwitterServiceImpl implements TwitterService {
         return count;
     }
 
-    private static void sendTweet( String tweetContent ) {
+    /**
+     * This method is currently not being used.
+     * @param tweetBody
+     */
+    private static void sendTweet( String tweetBody ) {
 
         // Read API keys from environment variables (don't want to check these into Github! LOL!)
-        ConfigurationBuilder cb = buildConfig( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET,
+        ConfigurationBuilder configurationBuilder = buildConfig( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET,
                                                TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET );
 
         try {
-            TwitterFactory factory = new TwitterFactory( cb.build() );
+            TwitterFactory factory = new TwitterFactory( configurationBuilder.build() );
             Twitter twitter = factory.getInstance();
 
             System.out.println( twitter.getScreenName() );
-            Status status = twitter.updateStatus( tweetContent );
+            Status status = twitter.updateStatus( tweetBody );
             System.out.println( "Successfully updated the status to [" + status.getText() + "]." );
         }
         catch ( TwitterException te ) {
