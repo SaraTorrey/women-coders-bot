@@ -14,7 +14,7 @@ public class TwitterPersistenceServiceImpl implements TwitterPersistenceService 
      * @param hashtags a string list of hashtags.
      */
     @Override
-    public void persistHashtagUsages(List<String> hashtags) {
+    public void persistHashtagUsages( List<String> hashtags ) {
 
         // TODO Implement
     }
