@@ -20,9 +20,10 @@ public class TwitterClientTest {
 
 
     @Test
-    public void testCountNumbers() {
+    public void testCountNumbers() throws InterruptedException {
 
         Assert.assertEquals( 6, (int) twitterService.numberCount( "testStringWithNumber238123" ) );
         Assert.assertEquals( 8, (int) twitterService.numberCount( "tes34tStringWithNumber238123" ) );
+
     }
 }

@@ -5,7 +5,6 @@ import com.saratorrey.womencodersbot.service.TwitterService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import twitter4j.FilterQuery;
@@ -51,7 +50,7 @@ public class TwitterServiceImpl implements TwitterService {
 
     @Override
     // Don't actually run the bot when running in test mode.
-    @Profile( "!test" )
+
     @PostConstruct // Runs the bot when the server starts up
     public void runBot() {
 
