@@ -127,7 +127,7 @@ public class TwitterServiceImpl implements TwitterService {
                 numberCount( status.getUser().getScreenName() ) >= FAKE_ACCOUNT_NUMBER_THRESHOLD;
         return !isAccountToSkip &&
                !status.isRetweet() &&
-               !status.isRetweetedByMe() &&
+               !status.isRetweetedByMe() && // Avoid infinite loop
                !tooManyNumberInAccountName;
     }
 
@@ -145,6 +145,9 @@ public class TwitterServiceImpl implements TwitterService {
         return cb;
     }
 
+    /**
+     * Counts the number of characters in the give String.
+     */
     @Override
     public Integer numberCount( String string ) {
 
