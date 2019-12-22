@@ -43,7 +43,8 @@ public class TwitterServiceImpl implements TwitterService {
                                                                      "#WomenCanCode",
                                                                      "#WomenCoders",
                                                                      "#GirlsWhoCode",
-                                                                     "#GirlsCanCode" );
+                                                                     "#GirlsCanCode",
+                                                                     "#MomsInTech");
 
     @Autowired
     Environment environment;
