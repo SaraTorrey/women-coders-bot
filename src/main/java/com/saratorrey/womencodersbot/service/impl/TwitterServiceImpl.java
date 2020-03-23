@@ -120,7 +120,7 @@ public class TwitterServiceImpl implements TwitterService {
 
         // Check if this is an account that should be skipped (helps with spam filtering)
         boolean isAccountToSkip = Arrays.stream( StringUtils.split( SKIP_ACCOUNTS, "," ) )
-                .anyMatch( s -> status.getUser().getScreenName().toLowerCase().contains( s.toLowerCase() ) );
+                .anyMatch( s -> status.getUser().getScreenName().toLowerCase().contains( s.trim().toLowerCase() ) );
 
         // Skip accounts with too many numbers in the name. Fake accounts often have lots of numbers in the name.
         boolean tooManyNumberInAccountName =
