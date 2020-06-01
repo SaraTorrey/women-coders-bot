@@ -34,6 +34,8 @@ public class TwitterServiceImpl implements TwitterService {
 
     // Comma-separated list of accounts to skip/ignore. Helps with spam filtering.
     private static final String SKIP_ACCOUNTS = System.getenv( "TWITTER_SKIP_ACCOUNTS" );
+    private static final String SKIP_PHRASES = System.getenv( "TWITTER_SKIP_PHRASES" );
+
     private static final int FAKE_ACCOUNT_NUMBER_THRESHOLD = 6;
 
     // Filter query indicating which hashtags to retweet
@@ -122,10 +124,16 @@ public class TwitterServiceImpl implements TwitterService {
         boolean isAccountToSkip = Arrays.stream( StringUtils.split( SKIP_ACCOUNTS, "," ) )
                 .anyMatch( s -> status.getUser().getScreenName().toLowerCase().contains( s.trim().toLowerCase() ) );
 
+        // Check if this is for phrases that should be skipped (helps with spam filtering)
+        boolean containsPhraseToSkip = Arrays.stream( StringUtils.split( SKIP_PHRASES, "," ) )
+                .anyMatch( s -> status.getText().toLowerCase().contains( s.trim().toLowerCase() ) );
+
+
         // Skip accounts with too many numbers in the name. Fake accounts often have lots of numbers in the name.
         boolean tooManyNumberInAccountName =
                 numberCount( status.getUser().getScreenName() ) >= FAKE_ACCOUNT_NUMBER_THRESHOLD;
         return !isAccountToSkip &&
+               !containsPhraseToSkip &&
                !status.isRetweet() &&
                !status.isRetweetedByMe() && // Avoid infinite loop
                !tooManyNumberInAccountName;
